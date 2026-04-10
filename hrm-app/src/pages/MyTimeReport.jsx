@@ -14,17 +14,16 @@ import {
 
 // ─── Fake Working Time Data ───
 const myTimeData = [
-  { date: '1/3/26', firstIn: '08:30:55', lastOut: '-', actualWork: '-', officeHours: '-', inOut: 0, lateHours: '-', earlyLeave: '-', status: '-', leaveAction: '-' },
-  { date: '2/3/26', firstIn: '08:31:03', lastOut: '17:49:18', actualWork: '1', officeHours: '8.17', inOut: 4, lateHours: '0', earlyLeave: '-', status: '-', leaveAction: '-' },
-  { date: '3/3/26', firstIn: '08:19:10', lastOut: '17:49:09', actualWork: '1', officeHours: '8.17', inOut: 4, lateHours: '0', earlyLeave: '-', status: '-', leaveAction: '-' },
-  { date: '4/3/26', firstIn: '08:41:12', lastOut: '-', actualWork: '-', officeHours: '-', inOut: 4, lateHours: '0', earlyLeave: '-', status: '-', leaveAction: '-' },
-  { date: '5/3/26', firstIn: '08:14:03', lastOut: '17:06:46', actualWork: '1', officeHours: '8.36', inOut: 4, lateHours: '0', earlyLeave: '-', status: '-', leaveAction: '-' },
-  { date: '6/3/26', firstIn: '08:16:32', lastOut: '17:54:00', actualWork: '1', officeHours: '8.38', inOut: 4, lateHours: '0', earlyLeave: '-', status: '-', leaveAction: '-' },
-  { date: '7/3/26', firstIn: '08:43:03', lastOut: '17:43:41', actualWork: '1', officeHours: '8.37', inOut: 4, lateHours: '0.13', earlyLeave: '-', status: '-', leaveAction: '-' },
-  { date: '8/3/26', firstIn: '08:32:17', lastOut: '17:49:55', actualWork: '1', officeHours: '8.13', inOut: 4, lateHours: '-', earlyLeave: '-', status: '-', leaveAction: '-' },
-  { date: '10/3/26', firstIn: '08:45:14', lastOut: '17:15:44', actualWork: '1', officeHours: '8.4', inOut: 4, lateHours: '0', earlyLeave: '-', status: '-', leaveAction: '-' },
-  { date: '11/3/26', firstIn: '08:41:06', lastOut: '17:55:01', actualWork: '1', officeHours: '8.17', inOut: 4, lateHours: '0', earlyLeave: '-', status: '-', leaveAction: '-' },
-  { date: '12/3/26', firstIn: '08:52:14', lastOut: '17:40:03', actualWork: '1', officeHours: '8.23', inOut: 6, lateHours: '0', earlyLeave: '-', status: '-', leaveAction: '-' },
+  { date: '13/03/2026', firstIn: '08:30:50', lastOut: '-', officeHours: 0, inOut: 1, lateHours: 0, earlyLeave: 0, status: 'Yêu cầu thiếu đơn' },
+  { date: '12/03/2026', firstIn: '08:31:55', lastOut: '17:49:19', officeHours: 8.28, inOut: 3, lateHours: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
+  { date: '11/03/2026', firstIn: '08:28:52', lastOut: '17:38:19', officeHours: 8.17, inOut: 2, lateHours: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
+  { date: '10/03/2026', firstIn: '08:11:12', lastOut: '17:35:07', officeHours: 8.38, inOut: 3, lateHours: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
+  { date: '09/03/2026', firstIn: '08:33:35', lastOut: '17:56:46', officeHours: 8.38, inOut: 2, lateHours: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
+  { date: '06/03/2026', firstIn: '08:32:08', lastOut: '17:42:46', officeHours: 8.17, inOut: 2, lateHours: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
+  { date: '05/03/2026', firstIn: '08:38:03', lastOut: '18:00:47', officeHours: 8.37, inOut: 2, lateHours: 0.13, earlyLeave: 0, status: 'Không yêu cầu đơn' },
+  { date: '04/03/2026', firstIn: '08:30:01', lastOut: '17:53:36', officeHours: 8.38, inOut: 4, lateHours: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
+  { date: '03/03/2026', firstIn: '08:32:17', lastOut: '17:40:30', officeHours: 8.13, inOut: 2, lateHours: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
+  { date: '02/03/2026', firstIn: '08:32:14', lastOut: '17:46:03', officeHours: 8.22, inOut: 3, lateHours: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
 ]
 
 export default function MyTimeReport() {
@@ -87,12 +86,11 @@ export default function MyTimeReport() {
             <TableHeader>Lần vào đầu tiên</TableHeader>
             <TableHeader>Lần ra cuối cùng</TableHeader>
             <TableHeader>Công thực tế</TableHeader>
-            <TableHeader>Thời gian trong văn phòng</TableHeader>
+            <TableHeader>Công theo đơn</TableHeader>
             <TableHeader>Số lần vô ra</TableHeader>
-            <TableHeader>Số giờ trễ</TableHeader>
-            <TableHeader>Thời gian về sớm</TableHeader>
+            <TableHeader>Số giờ đi trễ</TableHeader>
+            <TableHeader>Số giờ về sớm</TableHeader>
             <TableHeader>Trạng thái</TableHeader>
-            <TableHeader>Tạo đơn nghỉ</TableHeader>
           </TableHead>
           <TableBody>
             {data.map((row, idx) => (
@@ -100,13 +98,16 @@ export default function MyTimeReport() {
                 <TableCell>{row.date}</TableCell>
                 <TableCell>{row.firstIn}</TableCell>
                 <TableCell>{row.lastOut}</TableCell>
-                <TableCell>{row.actualWork}</TableCell>
-                <TableCell>{row.officeHours}</TableCell>
+                <TableCell>{row.officeHours || '-'}</TableCell>
+                <TableCell>0</TableCell>
                 <TableCell>{row.inOut}</TableCell>
                 <TableCell>{row.lateHours}</TableCell>
                 <TableCell>{row.earlyLeave}</TableCell>
-                <TableCell>{row.status}</TableCell>
-                <TableCell>{row.leaveAction}</TableCell>
+                <TableCell>
+                  <span className={row.status === 'Yêu cầu thiếu đơn' ? 'text-danger-500' : 'text-gray-500'}>
+                    {row.status}
+                  </span>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

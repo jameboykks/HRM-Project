@@ -69,11 +69,11 @@ export default function EmployeeManagement() {
   const [editForm, setEditForm] = useState({
     onboardDate: '',
     officialDate: '',
-    department: '',
+    role: '',
     level: '',
     title: '',
     status: '',
-    relatedPerson: '',
+    shift: '',
     manager: '',
   })
 
@@ -98,11 +98,11 @@ export default function EmployeeManagement() {
     setEditForm({
       onboardDate: '',
       officialDate: employee.officialDate,
-      department: '',
+      role: employee.role,
       level: employee.level,
       title: employee.title,
       status: employee.status,
-      relatedPerson: '',
+      shift: 'HC1,8h30,17h30',
       manager: employee.directManager,
     })
     setShowEditModal(true)
@@ -121,14 +121,14 @@ export default function EmployeeManagement() {
     <div>
       {/* Page Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Chinh sua thong tin nhan vien</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Chỉnh sửa thông tin nhân viên</h1>
       </div>
 
       {/* Search and Page Size */}
       <Card>
         <div className="px-5 py-4 border-b border-surface-200 flex items-center justify-between">
           <SearchInput
-            placeholder="Tim kiem nhan vien..."
+            placeholder="Tìm kiếm nhân viên..."
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value)
@@ -136,7 +136,7 @@ export default function EmployeeManagement() {
             }}
           />
           <div className="flex items-center gap-2 text-sm text-gray-600">
-            <span>Hien thi:</span>
+            <span>Hiển thị:</span>
             <select
               value={pageSize}
               onChange={(e) => {
@@ -154,16 +154,16 @@ export default function EmployeeManagement() {
 
         <Table>
           <TableHead>
-            <TableHeader>Ma nhan vien</TableHeader>
-            <TableHeader>Ten</TableHeader>
-            <TableHeader>Cap bac</TableHeader>
-            <TableHeader>Chuc danh</TableHeader>
-            <TableHeader>Ngay sinh</TableHeader>
-            <TableHeader>Ngay chinh thuc</TableHeader>
-            <TableHeader>Trang thai</TableHeader>
-            <TableHeader>Vai tro</TableHeader>
-            <TableHeader>Quan ly</TableHeader>
-            <TableHeader>Hanh dong</TableHeader>
+            <TableHeader>Mã nhân viên</TableHeader>
+            <TableHeader>Tên</TableHeader>
+            <TableHeader>Cấp bậc</TableHeader>
+            <TableHeader>Chức danh</TableHeader>
+            <TableHeader>Ngày Onboard</TableHeader>
+            <TableHeader>Ngày chính thức</TableHeader>
+            <TableHeader>Trạng thái</TableHeader>
+            <TableHeader>Vai trò</TableHeader>
+            <TableHeader>Quản lý</TableHeader>
+            <TableHeader>Hành động</TableHeader>
           </TableHead>
           <TableBody>
             {paginatedEmployees.map((emp) => (
@@ -172,7 +172,7 @@ export default function EmployeeManagement() {
                 <TableCell>{emp.name}</TableCell>
                 <TableCell>{emp.level || '-'}</TableCell>
                 <TableCell>{emp.title || '-'}</TableCell>
-                <TableCell>{emp.dob}</TableCell>
+                <TableCell>{'-'}</TableCell>
                 <TableCell>{emp.officialDate || '-'}</TableCell>
                 <TableCell>
                   {emp.status ? (
@@ -226,7 +226,7 @@ export default function EmployeeManagement() {
       <Modal
         isOpen={showEditModal}
         onClose={() => setShowEditModal(false)}
-        title="Quan ly thong tin nhan vien"
+        title="Chỉnh sửa thông tin nhân viên"
         icon={Settings}
         size="lg"
       >
@@ -234,67 +234,87 @@ export default function EmployeeManagement() {
           <>
             <div className="grid grid-cols-2 gap-4">
               <Input
-                label="Ma nhan vien"
+                label="Mã nhân viên"
                 value={selectedEmployee.id}
                 readOnly
               />
               <Input
-                label="Ten nhan vien"
+                label="Tên nhân viên"
                 value={selectedEmployee.name}
                 readOnly
               />
               <Input
-                label="Ngay OnBoard"
+                label="Ngày Onboard"
                 type="date"
                 value={editForm.onboardDate}
                 onChange={(e) => setEditForm({ ...editForm, onboardDate: e.target.value })}
               />
               <Input
-                label="Ngay chinh thuc"
+                label="Ngày chính thức"
+                type="date"
                 value={editForm.officialDate}
                 onChange={(e) => setEditForm({ ...editForm, officialDate: e.target.value })}
               />
-              <Input
-                label="Ha he"
-                value={editForm.department}
-                onChange={(e) => setEditForm({ ...editForm, department: e.target.value })}
+              <Select
+                label="Vai trò"
+                value={editForm.role}
+                onChange={(e) => setEditForm({ ...editForm, role: e.target.value })}
+                options={[
+                  { value: 'EMPLOYEE', label: 'EMPLOYEE' },
+                  { value: 'MANAGER', label: 'MANAGER' },
+                  { value: 'ADMIN', label: 'ADMIN' },
+                ]}
+                placeholder="Chọn vai trò"
               />
-              <Input
-                label="Cap bac"
+              <Select
+                label="Cấp bậc"
                 value={editForm.level}
                 onChange={(e) => setEditForm({ ...editForm, level: e.target.value })}
+                options={[
+                  { value: 'P1', label: 'P1' },
+                  { value: 'P2', label: 'P2' },
+                  { value: 'P3', label: 'P3' },
+                  { value: 'P5', label: 'P5' },
+                ]}
+                placeholder="Chọn cấp bậc"
               />
               <Input
-                label="Chuc danh"
+                label="Chức danh"
                 value={editForm.title}
                 onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
               />
               <Select
-                label="Trang thai"
+                label="Trạng thái"
                 value={editForm.status}
                 onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}
                 options={statusOptions}
-                placeholder="Chon trang thai"
-              />
-              <Input
-                label="Ca lien vien"
-                value={editForm.relatedPerson}
-                onChange={(e) => setEditForm({ ...editForm, relatedPerson: e.target.value })}
+                placeholder="Chọn trạng thái"
               />
               <Select
-                label="Chon quan ly"
+                label="Ca làm việc"
+                value={editForm.shift}
+                onChange={(e) => setEditForm({ ...editForm, shift: e.target.value })}
+                options={[
+                  { value: 'HC1,8h30,17h30', label: 'HC1,8h30,17h30' },
+                  { value: 'HC2,9h00,18h00', label: 'HC2,9h00,18h00' },
+                  { value: 'HC3,8h00,17h00', label: 'HC3,8h00,17h00' },
+                ]}
+                placeholder="Chọn ca làm việc"
+              />
+              <Select
+                label="Chọn quản lý"
                 value={editForm.manager}
                 onChange={(e) => setEditForm({ ...editForm, manager: e.target.value })}
                 options={managerOptions}
-                placeholder="Chon quan ly"
+                placeholder="Chọn quản lý"
               />
             </div>
             <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-surface-200">
               <Button variant="secondary" onClick={() => setShowEditModal(false)}>
-                Huy
+                Hủy
               </Button>
               <Button onClick={() => setShowEditModal(false)}>
-                Cap nhat
+                Chỉnh sửa
               </Button>
             </div>
           </>
@@ -305,7 +325,7 @@ export default function EmployeeManagement() {
       <Modal
         isOpen={showManagerModal}
         onClose={() => setShowManagerModal(false)}
-        title="Thong tin nguoi quan ly"
+        title="Thông tin người quản lý"
         size="md"
       >
         {selectedEmployee && (
@@ -313,7 +333,7 @@ export default function EmployeeManagement() {
             {/* Direct Manager */}
             <div>
               <h4 className="font-semibold text-gray-900 mb-3">
-                Thong tin nguoi quan ly truc tiep
+                Thông tin người quản lý trực tiếp
               </h4>
               {selectedEmployee.directManager ? (
                 <div className="flex items-center gap-3 p-3 bg-surface-50 rounded-lg">
@@ -328,14 +348,14 @@ export default function EmployeeManagement() {
                   </div>
                 </div>
               ) : (
-                <p className="text-sm text-gray-400 italic">Chua co thong tin</p>
+                <p className="text-sm text-gray-400 italic">Chưa có thông tin</p>
               )}
             </div>
 
             {/* Project Manager */}
             <div>
               <h4 className="font-semibold text-gray-900 mb-3">
-                Thong tin nguoi quan ly du an
+                Thông tin người quản lý dự án
               </h4>
               {selectedEmployee.projectManager ? (
                 <div className="flex items-center gap-3 p-3 bg-surface-50 rounded-lg">
@@ -350,7 +370,7 @@ export default function EmployeeManagement() {
                   </div>
                 </div>
               ) : (
-                <p className="text-sm text-gray-400 italic">Chua co thong tin</p>
+                <p className="text-sm text-gray-400 italic">Chưa có thông tin</p>
               )}
             </div>
           </div>

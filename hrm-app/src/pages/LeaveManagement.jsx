@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Check, X, Eye, Pencil, FileText, CheckCircle2 } from 'lucide-react'
+import { Check, X, Eye, Pencil, FileText, CheckCircle2, XCircle } from 'lucide-react'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import Modal from '../components/ui/Modal'
@@ -20,39 +20,39 @@ import {
 
 // ─── Fake Data ───
 const leaveData = [
-  { id: 1, name: 'Nguyen Duy Kiet', email: 'kiet.nguyen@hbz.vn', type: 'Nghỉ phép', hours: 16, status: 'CHỜ DUYỆT', reason: 'Điều chỉnh, nghỉ phép trước khi có hệ thống', dates: [{ date: '09/03/2026', hours: 8 }, { date: '10/03/2026', hours: 8 }] },
-  { id: 2, name: 'Nguyen Quan Tam', email: 'tam.nguyen@hbz.vn', type: 'Nghỉ phép', hours: 16, status: 'CHỜ DUYỆT', reason: 'Điều chỉnh, nghỉ phép trước khi có hệ thống', dates: [{ date: '11/03/2026', hours: 8 }, { date: '12/03/2026', hours: 8 }] },
-  { id: 3, name: 'Nguyen Quan Tam', email: 'tam.nguyen@hbz.vn', type: 'Nghỉ phép', hours: 16, status: 'CHỜ DUYỆT', reason: 'Điều chỉnh, nghỉ phép trước khi có hệ thống', dates: [{ date: '13/03/2026', hours: 8 }, { date: '14/03/2026', hours: 8 }] },
-  { id: 4, name: 'Nguyen Duy Kiet', email: 'kiet.nguyen@hbz.vn', type: 'Nghỉ phép', hours: 8, status: 'CHỜ DUYỆT', reason: 'nghỉ cá viec ca nhan', dates: [{ date: '15/03/2026', hours: 8 }] },
-  { id: 5, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 32, status: 'ĐÃ DUYỆT', reason: '12/3/23', dates: [{ date: '01/03/2026', hours: 8 }, { date: '02/03/2026', hours: 8 }, { date: '03/03/2026', hours: 8 }, { date: '04/03/2026', hours: 8 }] },
-  { id: 6, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 24, status: 'ĐÃ DUYỆT', reason: '12/3/23', dates: [{ date: '05/03/2026', hours: 8 }, { date: '06/03/2026', hours: 8 }, { date: '07/03/2026', hours: 8 }] },
-  { id: 7, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ DUYỆT', reason: '123', dates: [{ date: '08/03/2026', hours: 8 }] },
-  { id: 8, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ HỦY', reason: 'x', dates: [{ date: '09/03/2026', hours: 8 }] },
-  { id: 9, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 16, status: 'CHỜ DUYỆT', reason: '123123', dates: [{ date: '10/03/2026', hours: 8 }, { date: '11/03/2026', hours: 8 }] },
-  { id: 10, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 24, status: 'CHỜ DUYỆT', reason: '123123', dates: [{ date: '12/03/2026', hours: 8 }, { date: '13/03/2026', hours: 8 }, { date: '14/03/2026', hours: 8 }] },
-  { id: 11, name: 'Nguyen Thanh Thuy', email: 'thuy.nguyen@hbz.vn', type: 'Nghỉ phép', hours: 8, status: 'CHỜ DUYỆT', reason: 'nghỉ việc cá nhân', dates: [{ date: '15/03/2026', hours: 8 }] },
-  { id: 12, name: 'Dang Thi Le Hien', email: 'hien.dang@hbz.vn', type: 'Nghỉ phép', hours: 0.25, status: 'ĐÃ HỦY', reason: '3333', dates: [{ date: '16/03/2026', hours: 0.25 }] },
-  { id: 13, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 16, status: 'ĐÃ DUYỆT', reason: 'ticket YET', dates: [{ date: '17/03/2026', hours: 8 }, { date: '18/03/2026', hours: 8 }] },
-  { id: 14, name: 'Le Thi Kim Yen', email: 'yen.le@hbz.vn', type: 'Nghỉ phép', hours: null, status: 'ĐÃ HỦY', reason: 'xử lý giấy tờ', dates: [] },
-  { id: 15, name: 'Nguyen Thanh Thuy', email: 'thuy.nguyen@hbz.vn', type: 'Nghỉ không lương', hours: 8, status: 'ĐÃ HỦY', reason: 'xử lý giấy tờ', dates: [{ date: '19/03/2026', hours: 8 }] },
-  { id: 16, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ DUYỆT', reason: 'nghỉ ốm', dates: [{ date: '20/03/2026', hours: 8 }] },
-  { id: 17, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 16, status: 'ĐÃ DUYỆT', reason: 'đi khám bệnh', dates: [{ date: '21/03/2026', hours: 8 }, { date: '22/03/2026', hours: 8 }] },
-  { id: 18, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ HỦY', reason: 'hủy do thay đổi lịch', dates: [{ date: '23/03/2026', hours: 8 }] },
-  { id: 19, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ DUYỆT', reason: 'việc gia đình', dates: [{ date: '24/03/2026', hours: 8 }] },
-  { id: 20, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 8, status: 'CHỜ DUYỆT', reason: '213123', dates: [{ date: '25/03/2026', hours: 8 }] },
-  { id: 21, name: 'Nguyen Duy Kiet', email: 'kiet.nguyen@hbz.vn', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ DUYỆT', reason: 'nghỉ phép năm', dates: [{ date: '26/03/2026', hours: 8 }] },
-  { id: 22, name: 'Le Thi Kim Yen', email: 'yen.le@hbz.vn', type: 'Nghỉ phép', hours: 16, status: 'ĐÃ DUYỆT', reason: 'công tác cá nhân', dates: [{ date: '27/03/2026', hours: 8 }, { date: '28/03/2026', hours: 8 }] },
+  { id: 1, name: 'Nguyen Duy Kiet', email: 'kiet.nguyen@hbz.vn', type: 'Nghỉ phép', hours: 16, status: 'ĐÃ HỦY', reason: 'Có việc gia đình đột xuất', dates: [{ date: '09/03/2026', hours: 8 }, { date: '10/03/2026', hours: 8 }] },
+  { id: 2, name: 'Nguyen Quan Tam', email: 'tam.nguyen@hbz.vn', type: 'Nghỉ phép', hours: 16, status: 'ĐÃ DUYỆT', reason: 'Xử lý giấy tờ cá nhân', dates: [{ date: '11/03/2026', hours: 8 }, { date: '12/03/2026', hours: 8 }] },
+  { id: 3, name: 'Nguyen Quan Tam', email: 'tam.nguyen@hbz.vn', type: 'Nghỉ phép', hours: 16, status: 'ĐÃ DUYỆT', reason: 'Đau dạ dày', dates: [{ date: '13/03/2026', hours: 8 }, { date: '14/03/2026', hours: 8 }] },
+  { id: 4, name: 'Nguyen Duy Kiet', email: 'kiet.nguyen@hbz.vn', type: 'Nghỉ phép', hours: 0, status: 'ĐÃ DUYỆT', reason: 'Lên trường gặp giảng viên hướng dẫn', dates: [{ date: '15/03/2026', hours: 0 }] },
+  { id: 5, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 32, status: 'CHỜ DUYỆT', reason: 'Đau đầu', dates: [{ date: '01/03/2026', hours: 8 }, { date: '02/03/2026', hours: 8 }, { date: '03/03/2026', hours: 8 }, { date: '04/03/2026', hours: 8 }] },
+  { id: 6, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 24, status: 'CHỜ DUYỆT', reason: 'Đau đầu', dates: [{ date: '05/03/2026', hours: 8 }, { date: '06/03/2026', hours: 8 }, { date: '07/03/2026', hours: 8 }] },
+  { id: 7, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ HỦY', reason: 'Lên trường gặp giảng viên hướng dẫn', dates: [{ date: '08/03/2026', hours: 8 }] },
+  { id: 8, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 8, status: 'TỪ CHỐI', reason: 'Lên trường gặp giảng viên hướng dẫn', dates: [{ date: '09/03/2026', hours: 8 }] },
+  { id: 9, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Remote', hours: 8, status: 'ĐÃ DUYỆT', reason: 'Bàn việc gia đình', dates: [{ date: '10/03/2026', hours: 8 }] },
+  { id: 10, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Đi HĐ', hours: 4, status: 'CHỜ DUYỆT', reason: 'Bàn việc gia đình', dates: [{ date: '11/03/2026', hours: 4 }] },
+  { id: 11, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Vệ sinh', hours: 8, status: 'CHỜ DUYỆT', reason: 'Đau bụng', dates: [{ date: '12/03/2026', hours: 8 }] },
+  { id: 12, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 0.25, status: 'CHỜ DUYỆT', reason: 'Đau bụng', dates: [{ date: '13/03/2026', hours: 0.25 }] },
+  { id: 13, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ HỦY', reason: 'nghỉ việc cá nhân', dates: [{ date: '14/03/2026', hours: 8 }] },
+  { id: 14, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 16, status: 'ĐÃ HỦY', reason: 'Xử lý giấy tờ cá nhân', dates: [{ date: '15/03/2026', hours: 8 }, { date: '16/03/2026', hours: 8 }] },
+  { id: 15, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 8, status: 'CHỜ DUYỆT', reason: 'Bị sốt xuất huyết', dates: [{ date: '17/03/2026', hours: 8 }] },
+  { id: 16, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Ra ngoài', hours: 24, status: 'CHỜ DUYỆT', reason: 'Xử lý giấy tờ', dates: [{ date: '18/03/2026', hours: 8 }, { date: '19/03/2026', hours: 8 }, { date: '20/03/2026', hours: 8 }] },
+  { id: 17, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 8, status: 'CHỜ DUYỆT', reason: 'Có việc bận ở quê', dates: [{ date: '21/03/2026', hours: 8 }] },
 ]
 
 const statusVariantMap = {
   'CHỜ DUYỆT': 'warning',
   'ĐÃ DUYỆT': 'success',
   'ĐÃ HỦY': 'pink',
+  'TỪ CHỐI': 'danger',
 }
 
 const typeVariantMap = {
   'Nghỉ phép': 'orange',
   'Nghỉ không lương': 'gray',
+  'Remote': 'info',
+  'Đi HĐ': 'warning',
+  'Vệ sinh': 'info',
+  'Ra ngoài': 'orange',
 }
 
 export default function LeaveManagement() {
@@ -63,8 +63,10 @@ export default function LeaveManagement() {
   const [selectedRows, setSelectedRows] = useState([])
   const [showDetailModal, setShowDetailModal] = useState(false)
   const [showApproveModal, setShowApproveModal] = useState(false)
+  const [showRejectModal, setShowRejectModal] = useState(false)
   const [selectedLeave, setSelectedLeave] = useState(null)
-  const [feedback, setFeedback] = useState('')
+  const [approveReason, setApproveReason] = useState('')
+  const [rejectReason, setRejectReason] = useState('')
   const [detailFeedbacks, setDetailFeedbacks] = useState({})
 
   // Counts
@@ -127,18 +129,27 @@ export default function LeaveManagement() {
     setShowDetailModal(true)
   }
 
-  const handleOpenApproveModal = () => {
+  const handleApprove = (leave) => {
+    setSelectedLeave(leave)
+    setApproveReason('')
+    setShowApproveModal(true)
+  }
+
+  const handleReject = (leave) => {
+    setSelectedLeave(leave)
+    setRejectReason('')
+    setShowRejectModal(true)
+  }
+
+  const handleBulkApprove = () => {
     const pendingSelected = leaveData.filter(
       (l) => selectedRows.includes(l.id) && l.status === 'CHỜ DUYỆT'
     )
     if (pendingSelected.length === 0) return
-    setFeedback('')
+    setSelectedLeave(null)
+    setApproveReason('')
     setShowApproveModal(true)
   }
-
-  const selectedPendingLeaves = leaveData.filter(
-    (l) => selectedRows.includes(l.id) && l.status === 'CHỜ DUYỆT'
-  )
 
   return (
     <div>
@@ -148,7 +159,7 @@ export default function LeaveManagement() {
           <h1 className="text-2xl font-bold text-gray-900">Quản lý đơn nghỉ phép</h1>
           <p className="text-sm text-gray-500 mt-1">Xem và duyệt đơn nghỉ phép cho nhân viên</p>
         </div>
-        <Button icon={CheckCircle2} onClick={handleOpenApproveModal}>
+        <Button icon={CheckCircle2} onClick={handleBulkApprove}>
           Duyệt đơn
         </Button>
       </div>
@@ -239,39 +250,31 @@ export default function LeaveManagement() {
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-1">
-                    {leave.status === 'CHỜ DUYỆT' ? (
+                    <button
+                      onClick={() => handleViewDetail(leave)}
+                      className="p-1.5 rounded-lg text-primary-600 hover:bg-primary-50 cursor-pointer"
+                      title="Xem chi tiết"
+                    >
+                      <Eye className="w-4 h-4" />
+                    </button>
+                    {leave.status === 'CHỜ DUYỆT' && (
                       <>
                         <button
-                          onClick={() => {}}
+                          onClick={() => handleApprove(leave)}
                           className="p-1.5 rounded-lg text-success-600 hover:bg-success-50 cursor-pointer"
                           title="Duyệt"
                         >
                           <Check className="w-4 h-4" />
                         </button>
                         <button
-                          onClick={() => {}}
+                          onClick={() => handleReject(leave)}
                           className="p-1.5 rounded-lg text-danger-500 hover:bg-danger-50 cursor-pointer"
                           title="Từ chối"
                         >
                           <X className="w-4 h-4" />
                         </button>
                       </>
-                    ) : (
-                      <button
-                        onClick={() => handleViewDetail(leave)}
-                        className="p-1.5 rounded-lg text-primary-600 hover:bg-primary-50 cursor-pointer"
-                        title="Xem chi tiết"
-                      >
-                        <Eye className="w-4 h-4" />
-                      </button>
                     )}
-                    <button
-                      onClick={() => handleViewDetail(leave)}
-                      className="p-1.5 rounded-lg text-primary-600 hover:bg-primary-50 cursor-pointer"
-                      title="Xem chi tiết"
-                    >
-                      <FileText className="w-4 h-4" />
-                    </button>
                   </div>
                 </TableCell>
               </TableRow>
@@ -345,6 +348,11 @@ export default function LeaveManagement() {
                           <button className="p-1.5 rounded-lg text-primary-600 hover:bg-primary-50 cursor-pointer">
                             <Pencil className="w-4 h-4" />
                           </button>
+                          {selectedLeave.status === 'CHỜ DUYỆT' && (
+                            <button className="p-1.5 rounded-lg text-danger-500 hover:bg-danger-50 cursor-pointer">
+                              <X className="w-4 h-4" />
+                            </button>
+                          )}
                         </TableCell>
                       </TableRow>
                     ))
@@ -362,62 +370,91 @@ export default function LeaveManagement() {
         )}
       </Modal>
 
-      {/* ─── Approve Leave Modal ─── */}
+      {/* ─── Approve Modal ─── */}
       <Modal
         isOpen={showApproveModal}
-        onClose={() => setShowApproveModal(false)}
-        title="Chi tiết duyệt đơn"
+        onClose={() => { setShowApproveModal(false); setSelectedLeave(null) }}
+        title="Duyệt đơn làm thêm giờ"
         icon={CheckCircle2}
-        size="lg"
+        size="md"
       >
-        <div className="space-y-5">
-          {/* Selected leaves table */}
-          <div>
-            <h4 className="font-semibold text-gray-900 mb-3">Chi tiết ngày nghỉ</h4>
-            <Table>
-              <TableHead>
-                <TableHeader>Loại đơn</TableHeader>
-                <TableHeader>Thời gian nghỉ</TableHeader>
-                <TableHeader>Lý do</TableHeader>
-              </TableHead>
-              <TableBody>
-                {selectedPendingLeaves.map((leave) => (
-                  <TableRow key={leave.id}>
-                    <TableCell>
-                      <Badge variant={typeVariantMap[leave.type] || 'gray'}>
-                        {leave.type}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>{leave.hours != null ? `${leave.hours} giờ` : '-'}</TableCell>
-                    <TableCell>{leave.reason || '-'}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-
-          {/* Feedback */}
+        <div className="space-y-4">
+          {selectedLeave && (
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-2">Thông tin đơn nghỉ</h4>
+              <div className="text-sm text-gray-600 space-y-1">
+                <p>Nhân Viên: <span className="font-medium text-gray-900">{selectedLeave.name}</span></p>
+                <p>Lý do: <span className="font-medium text-gray-900">{selectedLeave.reason}</span></p>
+                <p>Ngày tạo đơn: <span className="font-medium text-gray-900">{selectedLeave.dates[0]?.date}</span></p>
+              </div>
+            </div>
+          )}
+          {!selectedLeave && (
+            <p className="text-sm text-gray-500">Duyệt {selectedRows.length} đơn đã chọn</p>
+          )}
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-gray-700">Phản hồi</label>
-            <textarea
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
-              placeholder="Nhập phản hồi..."
-              rows={3}
-              className="w-full px-3 py-2 text-sm border border-surface-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 placeholder:text-surface-400 resize-none"
+            <label className="text-sm font-medium text-gray-700">Lý do phê duyệt</label>
+            <input
+              type="text"
+              value={approveReason}
+              onChange={(e) => setApproveReason(e.target.value)}
+              placeholder="Vui lòng nhập lý do phê duyệt (tùy chọn)"
+              className="w-full px-3 py-2 text-sm border border-surface-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 placeholder:text-surface-400"
             />
           </div>
-
-          {/* Actions */}
           <div className="flex justify-end gap-3 pt-4 border-t border-surface-200">
-            <Button variant="danger" onClick={() => setShowApproveModal(false)}>
-              Từ chối
+            <Button variant="secondary" onClick={() => { setShowApproveModal(false); setSelectedLeave(null) }}>
+              Hủy
             </Button>
-            <Button variant="success" onClick={() => setShowApproveModal(false)}>
-              Duyệt
+            <Button variant="success" onClick={() => { setShowApproveModal(false); setSelectedLeave(null) }}>
+              <Check className="w-4 h-4 mr-1" />
+              Duyệt đơn
             </Button>
           </div>
         </div>
+      </Modal>
+
+      {/* ─── Reject Modal ─── */}
+      <Modal
+        isOpen={showRejectModal}
+        onClose={() => { setShowRejectModal(false); setSelectedLeave(null) }}
+        title="Từ chối đơn xin nghỉ"
+        icon={XCircle}
+        size="md"
+      >
+        {selectedLeave && (
+          <div className="space-y-4">
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-2">Thông tin đơn nghỉ</h4>
+              <div className="text-sm text-gray-600 space-y-1">
+                <p>Nhân Viên: <span className="font-medium text-gray-900">{selectedLeave.name}</span></p>
+                <p>Lý do: <span className="font-medium text-gray-900">{selectedLeave.reason}</span></p>
+                <p>Ngày tạo đơn: <span className="font-medium text-gray-900">{selectedLeave.dates[0]?.date}</span></p>
+              </div>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-sm font-medium text-gray-700">
+                Lý do từ chối <span className="text-danger-500">*</span>
+              </label>
+              <input
+                type="text"
+                value={rejectReason}
+                onChange={(e) => setRejectReason(e.target.value)}
+                placeholder="Vui lòng nhập lý do từ chối"
+                className="w-full px-3 py-2 text-sm border border-surface-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 placeholder:text-surface-400"
+              />
+            </div>
+            <div className="flex justify-end gap-3 pt-4 border-t border-surface-200">
+              <Button variant="secondary" onClick={() => { setShowRejectModal(false); setSelectedLeave(null) }}>
+                Hủy
+              </Button>
+              <Button variant="danger" onClick={() => { setShowRejectModal(false); setSelectedLeave(null) }}>
+                <X className="w-4 h-4 mr-1" />
+                Từ chối đơn
+              </Button>
+            </div>
+          </div>
+        )}
       </Modal>
     </div>
   )

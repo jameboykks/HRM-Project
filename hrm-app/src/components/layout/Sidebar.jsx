@@ -7,6 +7,7 @@ import {
   Users,
   FolderOpen,
   FileText,
+  FileClock,
   CalendarClock,
   Timer,
   ChevronDown,
@@ -27,6 +28,7 @@ const navSections = [
     title: 'Quản lý',
     items: [
       { label: 'Quản lý đơn nghỉ phép', path: '/admin/leave-requests', icon: FileText },
+      { label: 'Quản lý đơn OT', path: '/admin/ot-requests', icon: FileClock },
       { label: 'Quản lý dự án', path: '/admin/projects', icon: FolderOpen },
       { label: 'Quản lý thông tin nhân viên', path: '/admin/employees', icon: Users },
       { label: 'Quản lý kế hoạch OT', path: '/admin/ot-plans', icon: CalendarClock },
@@ -35,8 +37,7 @@ const navSections = [
   },
 ]
 
-export default function Sidebar() {
-  const [expanded, setExpanded] = useState(false)
+export default function Sidebar({ expanded, onExpandChange }) {
   const [openSections, setOpenSections] = useState({ 0: true, 1: true })
   const location = useLocation()
 
@@ -65,7 +66,7 @@ export default function Sidebar() {
                 </div>
               </div>
               <button
-                onClick={() => setExpanded(false)}
+                onClick={() => onExpandChange(false)}
                 className="p-1 rounded-lg hover:bg-surface-100 text-gray-400 cursor-pointer"
               >
                 <X className="w-5 h-5" />
@@ -73,7 +74,7 @@ export default function Sidebar() {
             </div>
           ) : (
             <button
-              onClick={() => setExpanded(true)}
+              onClick={() => onExpandChange(true)}
               className="w-full flex justify-center p-2 rounded-lg hover:bg-surface-100 text-gray-500 cursor-pointer"
             >
               <Menu className="w-5 h-5" />
@@ -150,7 +151,7 @@ export default function Sidebar() {
       {expanded && (
         <div
           className="fixed inset-0 z-30 bg-black/20 lg:hidden"
-          onClick={() => setExpanded(false)}
+          onClick={() => onExpandChange(false)}
         />
       )}
     </>

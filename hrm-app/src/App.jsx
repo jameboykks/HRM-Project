@@ -7,6 +7,7 @@ import ProjectManagement from './pages/ProjectManagement'
 import WorkingTimeManagement from './pages/WorkingTimeManagement'
 import OTPlanManagement from './pages/OTPlanManagement'
 import LeaveManagement from './pages/LeaveManagement'
+import OTRequestManagement from './pages/OTRequestManagement'
 import MyTimeReport from './pages/MyTimeReport'
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/admin/working-time" element={<WorkingTimeManagement />} />
         <Route path="/admin/ot-plans" element={<OTPlanManagement />} />
         <Route path="/admin/leave-requests" element={<LeaveManagement />} />
+        <Route path="/admin/ot-requests" element={<OTRequestManagement />} />
       </Route>
 
       {/* Default redirect */}

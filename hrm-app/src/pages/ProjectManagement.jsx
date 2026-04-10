@@ -178,31 +178,29 @@ export default function ProjectManagement() {
 
   const renderForm = (isEdit) => (
     <div className="space-y-4">
-      <Input
-        label="Mã dự án"
-        required
-        placeholder="Nhập mã dự án"
-        value={formData.id}
-        onChange={(e) => setFormData((prev) => ({ ...prev, id: e.target.value }))}
-      />
-      <Input
-        label="Tên dự án"
-        required
-        placeholder="Nhập tên dự án"
-        value={formData.name}
-        onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
-      />
-      <div className="flex flex-col gap-1.5">
-        <label className="text-sm font-medium text-gray-700">Mô tả</label>
-        <textarea
-          className="w-full px-3 py-2 text-sm border border-surface-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder:text-surface-400 resize-none"
-          rows={3}
-          placeholder="Nhập mô tả dự án"
+      <div className="grid grid-cols-2 gap-4">
+        <Input
+          label="Mã dự án"
+          required
+          placeholder="Nhập mã dự án"
+          value={formData.id}
+          onChange={(e) => setFormData((prev) => ({ ...prev, id: e.target.value }))}
+        />
+        <Input
+          label="Tên dự án"
+          required
+          placeholder="Nhập tên dự án"
+          value={formData.name}
+          onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
+        />
+        <Input
+          label="Mô tả"
+          required
+          placeholder="Mô tả dự án"
           value={formData.description}
           onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
         />
-      </div>
-      <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-1.5">
         <label className="text-sm font-medium text-gray-700">
           Chọn nhân viên<span className="text-danger-500 ml-0.5">*</span>
         </label>
@@ -220,6 +218,7 @@ export default function ProjectManagement() {
             </option>
           ))}
         </select>
+        </div>
       </div>
 
       {formData.members.length > 0 && (
@@ -290,7 +289,7 @@ export default function ProjectManagement() {
             <TableHeader>Tên dự án</TableHeader>
             <TableHeader>Ngày tạo</TableHeader>
             <TableHeader>Mô tả</TableHeader>
-            <TableHeader className="text-center">Actions</TableHeader>
+            <TableHeader className="text-center">Hành động</TableHeader>
           </TableHead>
           <TableBody>
             {paginatedProjects.map((project) => (
@@ -323,7 +322,7 @@ export default function ProjectManagement() {
       <Modal
         isOpen={showCreate}
         onClose={closeModals}
-        title="Chỉnh sửa dự án"
+        title="Tạo dự án"
         icon={Settings}
         size="lg"
       >

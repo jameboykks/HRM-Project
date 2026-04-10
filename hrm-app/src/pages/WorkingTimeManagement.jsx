@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { FileDown, Calendar, Search, ChevronDown, X } from 'lucide-react'
+import { FileDown, Calendar, Search, ChevronDown, X, Pencil } from 'lucide-react'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
@@ -31,17 +31,16 @@ const employees = [
 
 // ─── Fake Working Time Data (for Le Thi Chi Thuong) ───
 const workingTimeData = [
-  { date: '01/03/2026', firstIn: '08:30:55', lastOut: '-', officeHours: '-', inOut: 0, lateTime: '0', earlyLeave: '-', status: '-', action: '-' },
-  { date: '02/03/2026', firstIn: '08:31:03', lastOut: '17:49:18', officeHours: '8.28', inOut: 4, lateTime: '0', earlyLeave: '-', status: '-', action: '-' },
-  { date: '03/03/2026', firstIn: '08:19:10', lastOut: '17:49:09', officeHours: '8.17', inOut: 4, lateTime: '0', earlyLeave: '-', status: '-', action: '-' },
-  { date: '04/03/2026', firstIn: '08:41:12', lastOut: '17:15:44', officeHours: '-', inOut: 6, lateTime: '0', earlyLeave: '-', status: '-', action: '-' },
-  { date: '05/03/2026', firstIn: '08:14:03', lastOut: '17:06:46', officeHours: '8.36', inOut: 4, lateTime: '0', earlyLeave: '-', status: '-', action: '-' },
-  { date: '06/03/2026', firstIn: '08:16:32', lastOut: '17:54:00', officeHours: '8.38', inOut: 4, lateTime: '0', earlyLeave: '-', status: '-', action: '-' },
-  { date: '07/03/2026', firstIn: '08:43:03', lastOut: '17:43:41', officeHours: '8.37', inOut: 4, lateTime: '0.13', earlyLeave: '-', status: '-', action: '-' },
-  { date: '08/03/2026', firstIn: '08:32:17', lastOut: '17:49:55', officeHours: '8.13', inOut: 4, lateTime: '-', earlyLeave: '-', status: '-', action: '-' },
-  { date: '09/03/2026', firstIn: '08:25:40', lastOut: '17:38:22', officeHours: '8.21', inOut: 4, lateTime: '0', earlyLeave: '-', status: '-', action: '-' },
-  { date: '10/03/2026', firstIn: '08:18:55', lastOut: '17:52:10', officeHours: '8.55', inOut: 4, lateTime: '0', earlyLeave: '-', status: '-', action: '-' },
-  { date: '11/03/2026', firstIn: '08:29:48', lastOut: '17:46:33', officeHours: '8.28', inOut: 4, lateTime: '0', earlyLeave: '-', status: '-', action: '-' },
+  { date: '13/03/2026', firstIn: '08:30:50', lastOut: '---:---', officeHours: 0, inOut: 1, lateTime: 0, earlyLeave: 0, status: 'Yêu cầu thiếu đơn' },
+  { date: '12/03/2026', firstIn: '08:31:55', lastOut: '17:49:19', officeHours: 8.28, inOut: 3, lateTime: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
+  { date: '11/03/2026', firstIn: '08:28:52', lastOut: '17:38:19', officeHours: 8.17, inOut: 2, lateTime: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
+  { date: '10/03/2026', firstIn: '08:11:12', lastOut: '17:35:07', officeHours: 8.38, inOut: 3, lateTime: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
+  { date: '09/03/2026', firstIn: '08:33:35', lastOut: '17:56:46', officeHours: 8.38, inOut: 2, lateTime: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
+  { date: '06/03/2026', firstIn: '08:32:08', lastOut: '17:42:46', officeHours: 8.17, inOut: 2, lateTime: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
+  { date: '05/03/2026', firstIn: '08:38:03', lastOut: '18:00:47', officeHours: 8.37, inOut: 2, lateTime: 0.13, earlyLeave: 0, status: 'Không yêu cầu đơn' },
+  { date: '04/03/2026', firstIn: '08:30:01', lastOut: '17:53:36', officeHours: 8.38, inOut: 4, lateTime: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
+  { date: '03/03/2026', firstIn: '08:32:17', lastOut: '17:40:30', officeHours: 8.13, inOut: 2, lateTime: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
+  { date: '02/03/2026', firstIn: '08:32:14', lastOut: '17:46:03', officeHours: 8.22, inOut: 3, lateTime: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
 ]
 
 export default function WorkingTimeManagement() {
@@ -223,12 +222,20 @@ export default function WorkingTimeManagement() {
                   <TableCell>{row.date}</TableCell>
                   <TableCell>{row.firstIn}</TableCell>
                   <TableCell>{row.lastOut}</TableCell>
-                  <TableCell>{row.officeHours}</TableCell>
+                  <TableCell>{row.officeHours || '-'}</TableCell>
                   <TableCell>{row.inOut}</TableCell>
                   <TableCell>{row.lateTime}</TableCell>
                   <TableCell>{row.earlyLeave}</TableCell>
-                  <TableCell>{row.status}</TableCell>
-                  <TableCell>{row.action}</TableCell>
+                  <TableCell>
+                    <span className={row.status === 'Yêu cầu thiếu đơn' ? 'text-danger-500' : 'text-gray-500'}>
+                      {row.status}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <button className="p-1.5 rounded-lg text-primary-600 hover:bg-primary-50 cursor-pointer">
+                      <Pencil className="w-4 h-4" />
+                    </button>
+                  </TableCell>
                 </TableRow>
               ))
             )}

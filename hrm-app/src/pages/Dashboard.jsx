@@ -10,6 +10,7 @@ import {
   Eye,
   Plus,
   X,
+  Info,
 } from 'lucide-react'
 import Card from '../components/ui/Card'
 import StatCard from '../components/ui/StatCard'
@@ -43,14 +44,16 @@ const pendingLeaveData = []
 
 const completedLeaveData = [
   { date: '27/02/2026', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ DUYỆT', reason: 'xử lý giấy tờ', approver: 'Le Thi Kim Yen' },
+  { date: '19/02/2026', type: 'Nghỉ phép', hours: 8, status: 'TỪ CHỐI', reason: 'xử lý giấy tờ', approver: 'Le Thi Kim Yen' },
   { date: '14/02/2026', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ DUYỆT', reason: 'xử lý giấy tờ', approver: 'Le Thi Kim Yen' },
-  { date: '09/02/2026', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ DUYỆT', reason: 'xử lý giấy tờ', approver: 'Le Thi Kim Yen' },
-  { date: '17/02/2026', type: 'Nghỉ phép', hours: 8.25, status: 'ĐÃ DUYỆT', reason: 'xử lý giấy tờ', approver: 'Phan Khải' },
-  { date: '04/02/2026', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ DUYỆT', reason: 'xử lý giấy tờ', approver: 'Le Thi Kim Yen' },
-  { date: '06/02/2026', type: 'Nghỉ phép', hours: 8, status: 'HOÀN TẤT', reason: 'xử lý giấy tờ', approver: 'Le Viet Thy' },
-  { date: '09/01/2026', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ DUYỆT', reason: 'xử lý giấy tờ', approver: 'Le Thi Kim Yen' },
-  { date: '06/01/2026', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ DUYỆT', reason: 'xử lý giấy tờ', approver: 'Le Thi Kim Yen' },
-  { date: '01/01/2026', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ DUYỆT', reason: 'xử lý giấy tờ', approver: 'Le Thi Kim Yen' },
+  { date: '12/02/2026', type: 'Nghỉ bù', hours: 0.25, status: 'TỪ CHỐI', reason: 'xử lý giấy tờ', approver: 'Phan Khải' },
+  { date: '11/02/2026', type: 'Nghỉ bù', hours: 0.25, status: 'TỪ CHỐI', reason: 'xử lý giấy tờ', approver: 'Phan Khải' },
+  { date: '10/02/2026', type: 'Đi HĐ', hours: 0.25, status: 'ĐÃ DUYỆT', reason: 'xử lý giấy tờ', approver: 'Le Thi Kim Yen' },
+  { date: '09/02/2026', type: 'Nghỉ phép', hours: 8, status: 'TỪ CHỐI', reason: 'xử lý giấy tờ', approver: 'Tran Le Tu Anh' },
+  { date: '09/02/2026', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ HỦY', reason: 'xử lý giấy tờ', approver: 'La Viet Thy' },
+  { date: '06/02/2026', type: 'Nghỉ phép', hours: 8, status: 'TỪ CHỐI', reason: 'xử lý giấy tờ', approver: 'Le Thi Kim Yen' },
+  { date: '05/02/2026', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ HỦY', reason: 'xử lý giấy tờ', approver: 'Le Thi Kim Yen' },
+  { date: '05/02/2026', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ DUYỆT', reason: 'xử lý giấy tờ', approver: 'Le Thi Kim Yen' },
 ]
 
 const otPendingData = [
@@ -64,12 +67,12 @@ const otRejectedData = [
 ]
 
 const leaveBalanceData = [
-  { type: 'Ngày phép năm hiện tại', total: 3.00, used: 9.06, remaining: 0.00 },
-  { type: 'Ngày phép tồn năm trước', total: 0.00, used: 0.00, remaining: 0.00 },
-  { type: 'Ngày phép thâm niên', total: 0.00, used: 6.00, remaining: 0.00 },
-  { type: 'Ngày phép cấp bậc', total: 0.00, used: 0.00, remaining: 0.00 },
-  { type: 'Giờ bù hiện tại', total: 0.00, used: 2.00, remaining: 0.00 },
-  { type: 'Giờ bù năm trước', total: 0.00, used: 0.00, remaining: 0.00 },
+  { type: 'Ngày phép năm hiện tại', total: 3.00, used: 1.00, remaining: 2.00 },
+  { type: 'Ngày phép tồn năm trước', total: 4.00, used: 0.00, remaining: 0.00 },
+  { type: 'Ngày phép thâm niên', total: 6.00, used: 0.00, remaining: 0.00 },
+  { type: 'Ngày phép cấp bậc', total: 4.00, used: 0.00, remaining: 0.00 },
+  { type: 'Giờ bù hiện tại', total: 1.00, used: 0.00, remaining: 0.00 },
+  { type: 'Giờ bù năm trước', total: 2.00, used: 0.00, remaining: 0.00 },
 ]
 
 export default function Dashboard() {
@@ -80,6 +83,8 @@ export default function Dashboard() {
   const [showCreateOT, setShowCreateOT] = useState(false)
   const [showLeaveBalance, setShowLeaveBalance] = useState(false)
   const [showReportIssue, setShowReportIssue] = useState(false)
+  const [showOTDetail, setShowOTDetail] = useState(false)
+  const [selectedOT, setSelectedOT] = useState(null)
 
   const mainTabs = [
     { key: 'working', label: 'Thời gian làm việc', count: 2 },
@@ -265,22 +270,26 @@ export default function Dashboard() {
                     <TableHeader>Người phê duyệt</TableHeader>
                   </TableHead>
                   <TableBody>
-                    {completedLeaveData.map((row, i) => (
-                      <TableRow key={i}>
-                        <TableCell>{row.date}</TableCell>
-                        <TableCell>
-                          <Badge variant="warning">{row.type}</Badge>
-                        </TableCell>
-                        <TableCell>{row.hours}</TableCell>
-                        <TableCell>
-                          <Badge variant={row.status === 'ĐÃ DUYỆT' ? 'success' : 'info'}>
-                            {row.status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>{row.reason}</TableCell>
-                        <TableCell>{row.approver}</TableCell>
-                      </TableRow>
-                    ))}
+                    {completedLeaveData.map((row, i) => {
+                      const statusMap = { 'ĐÃ DUYỆT': 'success', 'TỪ CHỐI': 'danger', 'ĐÃ HỦY': 'pink', 'HOÀN TẤT': 'info' }
+                      const typeMap = { 'Nghỉ phép': 'warning', 'Nghỉ bù': 'info', 'Đi HĐ': 'orange' }
+                      return (
+                        <TableRow key={i}>
+                          <TableCell>{row.date}</TableCell>
+                          <TableCell>
+                            <Badge variant={typeMap[row.type] || 'warning'}>{row.type}</Badge>
+                          </TableCell>
+                          <TableCell>{row.hours}</TableCell>
+                          <TableCell>
+                            <Badge variant={statusMap[row.status] || 'gray'}>
+                              {row.status}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>{row.reason}</TableCell>
+                          <TableCell>{row.approver}</TableCell>
+                        </TableRow>
+                      )
+                    })}
                   </TableBody>
                 </Table>
                 <Pagination totalRecords={completedLeaveData.length} currentPage={1} totalPages={1} />
@@ -344,7 +353,10 @@ export default function Dashboard() {
                         <TableCell>{row.startTime}</TableCell>
                         <TableCell>{row.endTime}</TableCell>
                         <TableCell>
-                          <button className="p-1.5 rounded-lg text-primary-600 hover:bg-primary-50 cursor-pointer">
+                          <button
+                            onClick={() => { setSelectedOT({ ...row, status: 'Chờ duyệt' }); setShowOTDetail(true) }}
+                            className="p-1.5 rounded-lg text-primary-600 hover:bg-primary-50 cursor-pointer"
+                          >
                             <Eye className="w-4 h-4" />
                           </button>
                         </TableCell>
@@ -379,7 +391,10 @@ export default function Dashboard() {
                         <TableCell>{row.endTime}</TableCell>
                         <TableCell>{row.reason}</TableCell>
                         <TableCell>
-                          <button className="p-1.5 rounded-lg text-primary-600 hover:bg-primary-50 cursor-pointer">
+                          <button
+                            onClick={() => { setSelectedOT({ ...row, status: 'Đã từ chối' }); setShowOTDetail(true) }}
+                            className="p-1.5 rounded-lg text-primary-600 hover:bg-primary-50 cursor-pointer"
+                          >
                             <Eye className="w-4 h-4" />
                           </button>
                         </TableCell>
@@ -517,6 +532,42 @@ export default function Dashboard() {
             ))}
           </TableBody>
         </Table>
+      </Modal>
+
+      {/* ─── OT Detail Modal ─── */}
+      <Modal isOpen={showOTDetail} onClose={() => { setShowOTDetail(false); setSelectedOT(null) }} title="Chi tiết" size="md">
+        {selectedOT && (
+          <div className="space-y-3">
+            <div className="grid grid-cols-[140px_1fr] gap-y-3 text-sm">
+              <span className="text-gray-500">Thông tin</span>
+              <span className="font-semibold text-gray-900">Chi tiết</span>
+              <span className="text-gray-500">Dự án</span>
+              <span className="text-gray-900">Quản lý chấm công</span>
+              <span className="text-gray-500">Người tạo</span>
+              <span className="text-gray-900">Le Thi Kim Yen</span>
+              <span className="text-gray-500">Ngày tạo đơn</span>
+              <span className="text-gray-900">{selectedOT.date}</span>
+              <span className="text-gray-500">Thời gian bắt đầu</span>
+              <span className="text-gray-900">{selectedOT.startTime} <span className="text-gray-400 text-xs">({selectedOT.date})</span></span>
+              <span className="text-gray-500">Thời gian kết thúc</span>
+              <span className="text-gray-900">{selectedOT.endTime} <span className="text-gray-400 text-xs">({selectedOT.date})</span></span>
+              <span className="text-gray-500">Số giờ được duyệt</span>
+              <span className="text-gray-900">3.0 giờ</span>
+              <span className="text-gray-500">Trạng thái</span>
+              <span>
+                <Badge variant={selectedOT.status === 'Chờ duyệt' ? 'warning' : selectedOT.status === 'Đã từ chối' ? 'danger' : 'success'}>
+                  {selectedOT.status}
+                </Badge>
+              </span>
+              <span className="text-gray-500">Ngày duyệt</span>
+              <span className="text-gray-900">—</span>
+              <span className="text-gray-500">Mô tả công việc</span>
+              <span className="text-gray-900">Log bugs</span>
+              <span className="text-gray-500">Nhận xét</span>
+              <span className="text-gray-900">—</span>
+            </div>
+          </div>
+        )}
       </Modal>
 
       {/* ─── Report Issue Modal ─── */}

@@ -207,21 +207,19 @@ export default function OTPlanManagement() {
 
         <Table>
           <TableHead>
-            <TableHeader>Dự án</TableHeader>
-            <TableHeader>Tiêu đề</TableHeader>
-            <TableHeader>Mô tả</TableHeader>
-            <TableHeader>Nhân viên</TableHeader>
+            <TableHeader>Mã dự án</TableHeader>
+            <TableHeader>Tên dự án</TableHeader>
             <TableHeader>Ngày OT</TableHeader>
+            <TableHeader>Mô tả</TableHeader>
             <TableHeader>Hành động</TableHeader>
           </TableHead>
           <TableBody>
             {paginatedPlans.map((plan) => (
               <TableRow key={plan.id}>
-                <TableCell className="font-medium">{plan.project}</TableCell>
-                <TableCell>{plan.title}</TableCell>
-                <TableCell>{plan.description}</TableCell>
-                <TableCell>-</TableCell>
+                <TableCell className="font-medium">{plan.id}</TableCell>
+                <TableCell>{plan.project}</TableCell>
                 <TableCell>{plan.otDate}</TableCell>
+                <TableCell>{plan.description}</TableCell>
                 <TableCell>
                   <button
                     onClick={() => handleEdit(plan)}
