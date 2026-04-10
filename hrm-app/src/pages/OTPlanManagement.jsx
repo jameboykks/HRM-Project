@@ -187,7 +187,7 @@ export default function OTPlanManagement() {
       {/* Page Header */}
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Tạo và Quản lý kế hoạch OT</h1>
-        <Button variant="success" icon={Plus} onClick={handleOpenCreate}>
+        <Button variant="primary" icon={Plus} onClick={handleOpenCreate}>
           Tạo kế hoạch OT
         </Button>
       </div>

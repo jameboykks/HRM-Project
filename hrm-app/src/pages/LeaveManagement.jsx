@@ -30,7 +30,7 @@ const leaveData = [
   { id: 8, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 8, status: 'TỪ CHỐI', reason: 'Lên trường gặp giảng viên hướng dẫn', dates: [{ date: '09/03/2026', hours: 8 }] },
   { id: 9, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Remote', hours: 8, status: 'ĐÃ DUYỆT', reason: 'Bàn việc gia đình', dates: [{ date: '10/03/2026', hours: 8 }] },
   { id: 10, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Đi HĐ', hours: 4, status: 'CHỜ DUYỆT', reason: 'Bàn việc gia đình', dates: [{ date: '11/03/2026', hours: 4 }] },
-  { id: 11, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Vệ sinh', hours: 8, status: 'CHỜ DUYỆT', reason: 'Đau bụng', dates: [{ date: '12/03/2026', hours: 8 }] },
+  { id: 11, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ bù', hours: 8, status: 'CHỜ DUYỆT', reason: 'Bù giờ OT tuần trước', dates: [{ date: '12/03/2026', hours: 8 }] },
   { id: 12, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 0.25, status: 'CHỜ DUYỆT', reason: 'Đau bụng', dates: [{ date: '13/03/2026', hours: 0.25 }] },
   { id: 13, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 8, status: 'ĐÃ HỦY', reason: 'nghỉ việc cá nhân', dates: [{ date: '14/03/2026', hours: 8 }] },
   { id: 14, name: 'Phan Khải', email: 'khai.phan@hbz.vn', type: 'Nghỉ phép', hours: 16, status: 'ĐÃ HỦY', reason: 'Xử lý giấy tờ cá nhân', dates: [{ date: '15/03/2026', hours: 8 }, { date: '16/03/2026', hours: 8 }] },
@@ -51,7 +51,7 @@ const typeVariantMap = {
   'Nghỉ không lương': 'gray',
   'Remote': 'info',
   'Đi HĐ': 'warning',
-  'Vệ sinh': 'info',
+  'Nghỉ bù': 'info',
   'Ra ngoài': 'orange',
 }
 
@@ -213,7 +213,7 @@ export default function LeaveManagement() {
             <TableHeader>Thời gian nghỉ</TableHeader>
             <TableHeader>Trạng thái</TableHeader>
             <TableHeader>Lý do</TableHeader>
-            <TableHeader>Hành động</TableHeader>
+            {activeTab !== 'completed' && <TableHeader>Hành động</TableHeader>}
           </TableHead>
           <TableBody>
             {paginated.map((leave) => (
@@ -248,35 +248,37 @@ export default function LeaveManagement() {
                 <TableCell>
                   <span className="max-w-[200px] truncate block">{leave.reason || '-'}</span>
                 </TableCell>
-                <TableCell>
-                  <div className="flex items-center gap-1">
-                    <button
-                      onClick={() => handleViewDetail(leave)}
-                      className="p-1.5 rounded-lg text-primary-600 hover:bg-primary-50 cursor-pointer"
-                      title="Xem chi tiết"
-                    >
-                      <Eye className="w-4 h-4" />
-                    </button>
-                    {leave.status === 'CHỜ DUYỆT' && (
-                      <>
-                        <button
-                          onClick={() => handleApprove(leave)}
-                          className="p-1.5 rounded-lg text-success-600 hover:bg-success-50 cursor-pointer"
-                          title="Duyệt"
-                        >
-                          <Check className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => handleReject(leave)}
-                          className="p-1.5 rounded-lg text-danger-500 hover:bg-danger-50 cursor-pointer"
-                          title="Từ chối"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </TableCell>
+                {activeTab !== 'completed' && (
+                  <TableCell>
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => handleViewDetail(leave)}
+                        className="p-1.5 rounded-lg text-primary-600 hover:bg-primary-50 cursor-pointer"
+                        title="Xem chi tiết"
+                      >
+                        <Eye className="w-4 h-4" />
+                      </button>
+                      {leave.status === 'CHỜ DUYỆT' && (
+                        <>
+                          <button
+                            onClick={() => handleApprove(leave)}
+                            className="p-1.5 rounded-lg text-success-600 hover:bg-success-50 cursor-pointer"
+                            title="Duyệt"
+                          >
+                            <Check className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleReject(leave)}
+                            className="p-1.5 rounded-lg text-danger-500 hover:bg-danger-50 cursor-pointer"
+                            title="Từ chối"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>
