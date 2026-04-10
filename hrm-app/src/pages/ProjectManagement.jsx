@@ -298,13 +298,15 @@ export default function ProjectManagement() {
                 <TableCell>{project.name}</TableCell>
                 <TableCell>{project.createdDate}</TableCell>
                 <TableCell>{project.description}</TableCell>
-                <TableCell className="text-center">
-                  <button
-                    onClick={() => openEditModal(project)}
-                    className="p-1.5 rounded-lg text-gray-400 hover:text-primary-600 hover:bg-primary-50 transition-colors cursor-pointer"
-                  >
-                    <Pencil className="w-4 h-4" />
-                  </button>
+                <TableCell>
+                  <div className="flex justify-center">
+                    <button
+                      onClick={() => openEditModal(project)}
+                      className="p-1.5 rounded-lg text-primary-600 hover:bg-primary-50 transition-colors cursor-pointer"
+                    >
+                      <Pencil className="w-4 h-4" />
+                    </button>
+                  </div>
                 </TableCell>
               </TableRow>
             ))}

@@ -104,9 +104,13 @@ export default function MyTimeReport() {
                 <TableCell>{row.lateHours}</TableCell>
                 <TableCell>{row.earlyLeave}</TableCell>
                 <TableCell>
-                  <span className={row.status === 'Yêu cầu thiếu đơn' ? 'text-danger-500' : 'text-gray-500'}>
-                    {row.status}
-                  </span>
+                  {row.status === 'Yêu cầu thiếu đơn' ? (
+                    <span className="px-2 py-1 text-xs font-medium text-danger-500 border border-danger-500 rounded">
+                      {row.status}
+                    </span>
+                  ) : (
+                    <span className="text-gray-500">{row.status}</span>
+                  )}
                 </TableCell>
               </TableRow>
             ))}
