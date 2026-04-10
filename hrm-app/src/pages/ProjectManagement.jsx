@@ -289,7 +289,7 @@ export default function ProjectManagement() {
             <TableHeader>Tên dự án</TableHeader>
             <TableHeader>Ngày tạo</TableHeader>
             <TableHeader>Mô tả</TableHeader>
-            <TableHeader className="text-center">Hành động</TableHeader>
+            <TableHeader className="!text-center">Hành động</TableHeader>
           </TableHead>
           <TableBody>
             {paginatedProjects.map((project) => (
