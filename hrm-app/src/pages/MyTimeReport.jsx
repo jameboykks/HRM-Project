@@ -14,7 +14,7 @@ import {
 
 // ─── Fake Working Time Data ───
 const myTimeData = [
-  { date: '13/03/2026', firstIn: '08:30:50', lastOut: '-', officeHours: 0, inOut: 1, lateHours: 0, earlyLeave: 0, status: 'Yêu cầu thiếu đơn' },
+  { date: '13/03/2026', firstIn: '08:30:50', lastOut: '-', officeHours: 0, inOut: 1, lateHours: 0, earlyLeave: 0, status: 'Yêu cầu thêm đơn' },
   { date: '12/03/2026', firstIn: '08:31:55', lastOut: '17:49:19', officeHours: 8.28, inOut: 3, lateHours: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
   { date: '11/03/2026', firstIn: '08:28:52', lastOut: '17:38:19', officeHours: 8.17, inOut: 2, lateHours: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
   { date: '10/03/2026', firstIn: '08:11:12', lastOut: '17:35:07', officeHours: 8.38, inOut: 3, lateHours: 0, earlyLeave: 0, status: 'Không yêu cầu đơn' },
@@ -104,7 +104,7 @@ export default function MyTimeReport() {
                 <TableCell>{row.lateHours}</TableCell>
                 <TableCell>{row.earlyLeave}</TableCell>
                 <TableCell>
-                  {row.status === 'Yêu cầu thiếu đơn' ? (
+                  {row.status === 'Yêu cầu thêm đơn' ? (
                     <span className="px-2 py-1 text-xs font-medium text-danger-500 border border-danger-500 rounded">
                       {row.status}
                     </span>
