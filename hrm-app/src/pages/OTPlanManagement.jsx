@@ -211,7 +211,7 @@ export default function OTPlanManagement() {
             <TableHeader>Tên dự án</TableHeader>
             <TableHeader>Ngày OT</TableHeader>
             <TableHeader>Mô tả</TableHeader>
-            <TableHeader>Hành động</TableHeader>
+            <TableHeader className="!text-center">Hành động</TableHeader>
           </TableHead>
           <TableBody>
             {paginatedPlans.map((plan) => (
@@ -221,6 +221,7 @@ export default function OTPlanManagement() {
                 <TableCell>{plan.otDate}</TableCell>
                 <TableCell>{plan.description}</TableCell>
                 <TableCell>
+                  <div className="flex justify-center">
                   <button
                     onClick={() => handleEdit(plan)}
                     className="p-1.5 rounded-lg text-primary-600 hover:bg-primary-50 cursor-pointer"
@@ -228,6 +229,7 @@ export default function OTPlanManagement() {
                   >
                     <Pencil className="w-4 h-4" />
                   </button>
+                  </div>
                 </TableCell>
               </TableRow>
             ))}
